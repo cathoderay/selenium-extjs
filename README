@@ -1,2 +1,16 @@
 
-Testing...
+>> Installing:
+
+git clone git://github.com/cathoderay/selenium-extjs.git
+cd selenium-extjs
+rake package
+cd pkg
+gem install selenium-extjs-0.0.1.gem
+
+>> Using:
+
+require 'rubygems'
+require 'selenium-extjs'
+
+# work in progress -- please wait!
+

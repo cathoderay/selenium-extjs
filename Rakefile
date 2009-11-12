@@ -3,12 +3,13 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
  
-# $LOAD_PATH.unshift("lib")
+$LOAD_PATH.unshift("lib")
+
+require 'selenium-extjs'
 
 spec = Gem::Specification.new do |s|
-  
   s.name = "selenium-extjs"
-  s.version = "0.0.1"
+  s.version = SeleniumExtJs::VERSION
   s.email = "raios.catodicos@gmail.com"
   s.version = "0.0.1"
   s.author = "Ronald Andreu Kaiser"
@@ -20,12 +21,12 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = false
   s.extra_rdoc_files = ["README"]  
   s.require_paths = ["lib"]
-
+  # TODO: add dependency selenium-client (1.2.17)
 end
  
 Rake::GemPackageTask.new spec do |pkg|
-  pkg.need_tar = true
-  pkg.need_zip = true
+  # pkg.need_tar = true
+  # pkg.need_zip = true
 end
  
 desc "Generate a gemspec file for GitHub"
