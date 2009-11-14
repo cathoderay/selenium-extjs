@@ -1,16 +1,26 @@
 
-require 'Component'
+require 'rubygems'
+require 'selenium/client'
+require 'selenium-extjs/Component'
+
 
 module Ext
 
-  class Selenium
+  class Driver
+    # < Selenium::Client::Driver
     @@instance = nil
-    def initialize
-      @@instance = self
-    end
-    def get_eval exp
-      print exp
-      return "1"
+    def initialize()
+      # TODO: params.
+      @@instance = ::Selenium::Client::Driver.new \
+        :host => "localhost",
+        :port => 4444,
+        :browser => "*firefox",
+        :url => "http://www.extjs.com/",
+        :timeout_in_second => 60
+        
+      @@instance.start_new_browser_session
+      # @@instance.open "/"
+      # @@instance = self
     end
     def self.instance() 
       return @@instance
@@ -18,15 +28,25 @@ module Ext
   end
     
   def self.find(args)
-    selenium = Ext::Selenium::instance()
+    selenium = Ext::Driver::instance()
     if args.kind_of? Hash
+      
       exp = ""
+      parent = nil
+      
+      xtype = nil
       args.each do |k,v|
         exp += case k
+          when :wait
+            "" # empty
+          when :text
+            " (el.getText?(el.getText() == '#{v}'):false) && "
           when :xtype
+            xtype = v
             " el.getXType() == '#{v}' && "
           when :xparent
             if v.kind_of? Ext::Component
+              parent = v
               " el.findParentBy(function(o) { return o.getId() == '#{v.getId()}' }) && "
             else
               " el.findParentBy(function(o) { return o.getXType() == '#{v}' }) && "
@@ -34,32 +54,38 @@ module Ext
         end
       end
       exp = exp[0,exp.length - 3]
-      id = selenium.get_eval("window.Ext.ComponentMgr.all.find(function(el){ #{exp}}).getId()")
-      case selenium.get_eval("window.Ext.getCmp('#{id}').getXType()")
-      when "grid"
-        # return Ext::Grid.new(id)
-      else
-        return Component.new(id) if id != nil
+      p "window.Ext.ComponentMgr.all.find(function(el){ return #{exp}  }).getId()"
+
+      if args.has_key?(:wait) && args[:wait]
+        selenium.wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ return (#{exp}); })")
       end
+      
+      id = selenium.get_eval("window.Ext.ComponentMgr.all.find(function(el){ return (#{exp}); }).getId()")
+
+      # melhorar :)
+      ref = {
+        :button => Button,
+        :component => Component,
+        :grid => Grid,
+        :editorgrid => EditorGrid,
+        :window => Window
+        }
+        
+
+      # if xtype == nil
+      xtypes = selenium.get_eval("window.Ext.getCmp('#{id}').getXTypes()")
+      # p xtypes
+      print "----"
+      cls = xtypes.split("/").reverse.select do |el|
+        # p  ref
+        # p el
+        ref.has_key? el.to_sym
+      end
+      p cls
+      # print "****"
+      # print ref[cls.first().to_sym]
+      # TODO: confused.
+      return (ref[cls.first().to_sym]).new(id, parent) if id != nil
     end
   end
 end
-
-# setup selenium
-Ext::Selenium.new()
-
-# find component "panel"
-cmp = Ext::find(:xtype => "panel", :xparent => 'stream-list')
-
-p "-----"
-
-# find component "panel"
-cmp2 = Ext::find(:xtype => "grid", :xparent => cmp)
-
-# cmp2.check_all()
-# cmp2.check_row :name => "Nome", :value => "fooo"
-# cmp2.edit_cel :row => 2, :value => "NewValue"
-
-
-
-
