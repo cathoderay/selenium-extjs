@@ -4,12 +4,27 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
+require 'selenium/rake/tasks' 
+
  
 $LOAD_PATH.unshift("lib")
 
 require 'selenium-extjs'
 
-require 'selenium/rake/tasks' 
+desc 'Test Selenium-ExtJS.'
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = true
+end
+
+# CREATE CONSOLE FOR TESTING.
+# desc 'Console.'
+# task :shell do |t|
+#   chdir File.dirname(__FILE__)
+#   exec 'irb -I lib/ -I lib/selenium-exjs -r rubygems'
+# end
+
 Selenium::Rake::RemoteControlStartTask.new do |rc|
   rc.port = 4444
   rc.timeout_in_seconds = 3 * 60
