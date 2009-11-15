@@ -4,18 +4,22 @@
 Please, it's work in progress - wait for complete features or help us :)
 
 More information about extjs and selenium tests:
-http://www.xeolabs.com/portal/articles/selenium-and-extjs
-http://stackoverflow.com/questions/107314/any-suggestions-for-testing-extjs-code-in-a-browser-preferably-with-selenium
+* http://www.xeolabs.com/portal/articles/selenium-and-extjs
+* http://stackoverflow.com/questions/107314/any-suggestions-for-testing-extjs-code-in-a-browser-preferably-with-selenium
 
 ==Instalation
 
 # TODO: deploy gem
 
-git clone git://github.com/cathoderay/selenium-extjs.git
-cd selenium-extjs
-rake package
-cd pkg
-gem install selenium-extjs-0.0.1.gem
+* git clone git://github.com/cathoderay/selenium-extjs.git
+* cd selenium-extjs
+* rake package
+* cd pkg
+* gem install selenium-extjs-0.0.1.gem
+
+==Contributing
+
+Send us a message!
 
 ==Some Examples
 
