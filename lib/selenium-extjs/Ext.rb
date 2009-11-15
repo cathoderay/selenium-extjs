@@ -26,6 +26,39 @@ module Ext
       return @@instance
     end
   end
+  
+  def self.build_cmp(id, parent)
+    selenium = Ext::Driver::instance()
+    # melhorar :)
+    ref = {
+      :button => Button,
+      :component => Component,
+      :grid => Grid,
+      :editorgrid => EditorGrid,
+      :window => Window,
+      :form => Form,
+      :field => Field,
+      :panel => Panel,
+      :tabpanel => TabPanel
+      }
+      
+
+    # if xtype == nil
+    xtypes = selenium.get_eval("window.Ext.getCmp('#{id}').getXTypes()")
+    p "#{id} => #{xtypes}"
+    print "----"
+    cls = xtypes.split("/").reverse.select do |el|
+      # p  ref
+      # p el
+      ref.has_key? el.to_sym
+    end
+    p cls
+    # print "****"
+    # print ref[cls.first().to_sym]
+    # TODO: confused.
+    return (ref[cls.first().to_sym]).new(id, parent) if id != nil
+    
+  end
     
   def self.find(args)
     selenium = Ext::Driver::instance()
@@ -37,6 +70,13 @@ module Ext
       xtype = nil
       args.each do |k,v|
         exp += case k
+          # use para botões.
+          when :icon_cls
+            " (el.iconCls?(el.iconCls.indexOf('#{v}') != -1):false) && "
+          when :title
+            " (el.title?(el.title == '#{v}'):false) && "
+          when :title_has
+            " (el.title?(el.title.indexOf('#{v}') != -1):false) && "
           when :wait
             "" # empty
           when :text
@@ -56,36 +96,13 @@ module Ext
       exp = exp[0,exp.length - 3]
       p "window.Ext.ComponentMgr.all.find(function(el){ return #{exp}  }).getId()"
 
+      # wait for element.
       if args.has_key?(:wait) && args[:wait]
         selenium.wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ return (#{exp}); })")
       end
       
       id = selenium.get_eval("window.Ext.ComponentMgr.all.find(function(el){ return (#{exp}); }).getId()")
-
-      # melhorar :)
-      ref = {
-        :button => Button,
-        :component => Component,
-        :grid => Grid,
-        :editorgrid => EditorGrid,
-        :window => Window
-        }
-        
-
-      # if xtype == nil
-      xtypes = selenium.get_eval("window.Ext.getCmp('#{id}').getXTypes()")
-      # p xtypes
-      print "----"
-      cls = xtypes.split("/").reverse.select do |el|
-        # p  ref
-        # p el
-        ref.has_key? el.to_sym
-      end
-      p cls
-      # print "****"
-      # print ref[cls.first().to_sym]
-      # TODO: confused.
-      return (ref[cls.first().to_sym]).new(id, parent) if id != nil
+      return build_cmp(id, parent)
     end
   end
 end

@@ -1,5 +1,15 @@
 
->> Installing:
+= Selenium-extjs
+
+Please, it's work in progress - wait for complete features or help us :)
+
+More information about extjs and selenium tests:
+http://www.xeolabs.com/portal/articles/selenium-and-extjs
+http://stackoverflow.com/questions/107314/any-suggestions-for-testing-extjs-code-in-a-browser-preferably-with-selenium
+
+==Instalation
+
+# TODO: deploy gem
 
 git clone git://github.com/cathoderay/selenium-extjs.git
 cd selenium-extjs
@@ -7,10 +17,52 @@ rake package
 cd pkg
 gem install selenium-extjs-0.0.1.gem
 
->> Using:
+==Some Examples
 
-require 'rubygems'
-require 'selenium-extjs'
+Please, take a look at "/test" files.
 
-# work in progress -- please wait!
+===Simple
+
+	appfeedgrid = Ext::find(:xtype => "appfeedgrid")
+
+	button = Ext::find(:xtype => "button", :text => 'Open All', :xparent => appfeedgrid)
+	# click method wait for any request complete
+	button.click
+
+=== Working with Form
+
+	# search for form.
+	form = Ext::find(:xtype => "form", :title_has => 'Simple')
+
+	# change every field at form.
+	form.fields.each do |name, field|
+	  p field.value = "Loren Ipsun"
+	end
+
+	p form.fields[:email].has_error?
+	form.fields[:email].value = 'myemail@domain.br'
+	p form.fields[:email].has_error?
+
+=== Working with Grid and Ajax Content.
+
+	# :wait blocks test, waiting for window
+	window = Ext::find(:xtype => 'window', :wait => true, :title => 'Store Load Callback')
+	# close the window
+	window.close
+
+	# search for editorgrid component.
+	editorgrid = Ext::find(:xtype => "editorgrid")
+
+	# number of lines
+	print editorgrid.num_rows()
+
+	# set row 1 with data
+	editorgrid.edit_row(1, ["Jorge", "Shade", "10.10", "24/03/06", true]);
+ 
+	# get row (hash)
+	print editorgrid.get_row(3)
+ 
+	# clica at cell x,y
+	editorgrid.click_at_cell(2, 5)
+
 
