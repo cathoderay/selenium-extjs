@@ -11,6 +11,19 @@ require 'selenium-extjs/component/Window'
 
 
 module Ext
+
+  Ref = {
+  :button => Button,
+  :component => Component,
+  :grid => Grid,
+  :editorgrid => EditorGrid,
+  :window => Window,
+  :form => Form,
+  :field => Field,
+  :panel => Panel,
+  :tabpanel => TabPanel
+  }
+
   class Driver
     @@instance = nil
     def initialize(host="localhost", port="4444", browser="*firefox", 
@@ -30,35 +43,22 @@ module Ext
   end
   
   def self.build_cmp(id, parent)
-    selenium = Ext::Driver::instance()
-    # melhorar :)
-    ref = {
-      :button => Button,
-      :component => Component,
-      :grid => Grid,
-      :editorgrid => EditorGrid,
-      :window => Window,
-      :form => Form,
-      :field => Field,
-      :panel => Panel,
-      :tabpanel => TabPanel
-      }
-      
+    selenium = Ext::Driver::instance()     
 
     # if xtype == nil
     xtypes = selenium.get_eval("window.Ext.getCmp('#{id}').getXTypes()")
     p "#{id} => #{xtypes}"
     print "----"
     cls = xtypes.split("/").reverse.select do |el|
-      # p  ref
+      # p  Ref
       # p el
-      ref.has_key? el.to_sym
+      Ref.has_key? el.to_sym
     end
     p cls
     # print "****"
-    # print ref[cls.first().to_sym]
+    # print Ref[cls.first().to_sym]
     # TODO: confused.
-    return (ref[cls.first().to_sym]).new(id, parent) if id != nil    
+    return (Ref[cls.first().to_sym]).new(id, parent) if id != nil    
   end
     
   def self.find(args)
