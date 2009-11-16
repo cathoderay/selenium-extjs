@@ -5,9 +5,9 @@ require "selenium/client"
 $LOAD_PATH.unshift("../lib")
 require 'selenium-extjs'
 
-begin
-  Ext::Driver.new() 
 
+begin
+  Ext::Driver.new()
   s = Ext::Driver::instance()
   s.open 'deploy/dev/examples/form/dynamic.html'
 

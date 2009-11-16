@@ -1,6 +1,5 @@
 
 module Ext
-	# component.
 	class Component
 	  def initialize(id, parent = nil)
 	    @id = id
@@ -37,7 +36,6 @@ module Ext
 	    s = Ext::Driver::instance()
 	    p selector()
 	    s.highlight(selector())
-    end
-	  
+    end	  
 	end
 end

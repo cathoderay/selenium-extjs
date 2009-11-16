@@ -1,9 +1,9 @@
+
 module Ext
 	class Grid < Component
   end
 
-	class EditorGrid < Grid
-	  
+	class EditorGrid < Grid	  
 	  def initialize(id, parent)
 	    super(id, parent)
     end
@@ -42,7 +42,6 @@ module Ext
       
       p "editores"
       
-    
       len.times().each do |idx|
         print "window.Ext.getCmp('#{@id}').colModel.columns[#{idx}].getEditor().getId()"
         begin
@@ -66,7 +65,6 @@ module Ext
       #   
       # end
     end
-
 
     # //div[contains(@class,"x-grid3-body")]//div[2]//table//td[3]
 	  # // x-grid3-viewport
