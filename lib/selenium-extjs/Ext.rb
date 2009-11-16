@@ -33,7 +33,7 @@ module Ext
         :port => port,
         :browser => browser,
         :url => url,
-        :timeout_in_second => timeout_in_second        
+        :timeout_in_second => timeout_in_second
       @@instance.start_new_browser_session
     end
 
@@ -42,6 +42,10 @@ module Ext
     end
   end
   
+  def reg(xtype, clazz)
+    Ref[xtype] = clazz
+  end
+
   def self.build_cmp(id, parent)
     selenium = Ext::Driver::instance()     
 
