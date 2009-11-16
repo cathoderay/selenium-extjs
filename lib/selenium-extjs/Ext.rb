@@ -15,14 +15,14 @@ module Ext
   class Driver
     # < Selenium::Client::Driver
     @@instance = nil
-    def initialize()
-      # TODO: params.
+    def initialize(host="localhost", port="4444", browser="*firefox", 
+                   url="http://www.extjs.com/", timeout_in_second=60)
       @@instance = ::Selenium::Client::Driver.new \
-        :host => "localhost",
-        :port => 4444,
-        :browser => "*firefox",
-        :url => "http://www.extjs.com/",
-        :timeout_in_second => 60
+        :host => host,
+        :port => port,
+        :browser => browser,
+        :url => url,
+        :timeout_in_second => timeout_in_second
         
       @@instance.start_new_browser_session
       # @@instance.open "/"
