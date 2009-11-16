@@ -2,6 +2,12 @@
 require 'rubygems'
 require 'selenium/client'
 require 'selenium-extjs/Component'
+require 'selenium-extjs/Button'
+require 'selenium-extjs/Field'
+require 'selenium-extjs/Form'
+require 'selenium-extjs/Grid'
+require 'selenium-extjs/Panel'
+require 'selenium-extjs/Window'
 
 
 module Ext
