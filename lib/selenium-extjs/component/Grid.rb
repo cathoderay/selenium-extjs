@@ -4,9 +4,7 @@ module Ext
   end
 
 	class EditorGrid < Grid	  
-	  def initialize(id, parent)
-	    super(id, parent)
-    end
+
     
     def click_at_cell(x,y)
       @selenium.click_at(node() + "//div[contains(@class,'x-grid3-body')]//div[#{x}]//table//td[#{y}]", "0,0")
@@ -51,7 +49,7 @@ module Ext
           @selenium.type(node() + "//*[@id='#{editable}']", data[idx])
           @selenium.fire_event(node() + "//*[@id='#{editable}']", "blur")
           sleep 1
-        rescue Selenium::CommandError => ex
+        rescue RuntimeError => ex
           p ex
         end
         # print editable

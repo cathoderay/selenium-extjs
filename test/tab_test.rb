@@ -6,17 +6,27 @@ $LOAD_PATH.unshift("../lib")
 require 'selenium-extjs'
 
 begin
-  Ext::Driver.new() 
 
-  s = Ext::Driver::instance()
+  s = Ext::Selenium.new \
+  :host              => "localhost",
+  :port              => 4444,
+  :browser           => "*firefox",
+  :url               => "http://www.extjs.com/",
+  :timeout_in_second => 60
+
+  s.start_new_browser_session
   s.open 'deploy/dev/examples/tabs/tabs.html'
 
-  tabpanel = Ext::find(:xtype => "tabpanel")
+  tabpanel = s.find_ext(:xtype => "tabpanel")
 
-  p "active panel:" + tabpanel.active_tab.title
+  
+  p "active panel:" + tabpanel.getActiveTab().title
 
   # work with position
   p tabpanel.active_tab = 2
+
+  p tabpanel.getActiveTab().title
+  p tabpanel.getActiveTab().title == "Long Text"
   
   sleep 10
 

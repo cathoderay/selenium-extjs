@@ -6,18 +6,25 @@ $LOAD_PATH.unshift("../lib")
 require 'selenium-extjs'
 
 begin
-  Ext::Driver.new() 
 
-  s = Ext::Driver::instance()
+  s = Ext::Selenium.new \
+  :host              => "localhost",
+  :port              => 4444,
+  :browser           => "*firefox",
+  :url               => "http://www.extjs.com/",
+  :timeout_in_second => 60
+
+  s.start_new_browser_session
   s.open 'deploy/dev/examples/grid/edit-grid.html'
 
   # wait for window.
-  window = Ext::find(:xtype => 'window', :wait => true, :title => 'Store Load Callback')
+  window = s.find_ext(:xtype => 'window', :wait => true, :title => 'Store Load Callback')
   # close the window
   window.close
 
+
   # search for editorgrid component.
-  editorgrid = Ext::find(:xtype => "editorgrid")
+  editorgrid = s.find_ext(:xtype => "editorgrid")
 
   # number of lines (on store?) 
   print editorgrid.num_rows()

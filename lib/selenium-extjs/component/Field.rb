@@ -1,22 +1,22 @@
 
 module Ext
 	class Field < Component
-	  attr_reader :name
-	  
-	  def initialize(id, parent)
-	    super(id, parent)
-  	  @name = @selenium.get_eval("window.Ext.getCmp('#{@id}').getName()");
-    end
+
+#	  attr_reader :name
+#	  def init_component()
+#  	  @name = @selenium.get_eval("window.Ext.getCmp('#{@id}').getName()");
+#    end
     
     def value= (v)
       @selenium.type(@id, v)
       @selenium.fire_event(@id, "blur")
     end
     
-    def has_error?
-      # using Ext.JS
-      @selenium.get_eval("window.Ext.getCmp('#{@id}').isValid()") != "true"
-    end
+    # user valid?
+    #def has_error?
+    #  # using Ext.JS
+    #  @selenium.get_eval("window.Ext.getCmp('#{@id}').isValid()") != "true"
+    #end
     
     def value
       # xpath or Ext?

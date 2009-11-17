@@ -1,18 +1,18 @@
 
 module Ext
   class Form < Component
+
     attr_reader :fields 
     
-	  def initialize(id, parent)
-	    super(id, parent)
-	    
+	  def init_component()
+   
 	    # load all fields.
-	    fields = @selenium.get_eval("window.Ext.getCmp('#{id}').findBy(function(el) { return el.getXTypes().indexOf('/field/') != -1 }).map(function(el) { return el.getId() })");
-      
+	    fields = @selenium.get_eval("window.Ext.getCmp('#{@id}').findBy(function(el) { return el.getXTypes().indexOf('/field/') != -1 }).map(function(el) { return el.getId() })");
+      print fields
       @fields = {}
       fields.split(",").each do |field_id|
-        field = Ext::build_cmp(field_id, self);
-        @fields[field.name.to_sym] = field
+        field = @selenium.get_cmp(field_id, self);
+        @fields[field.getName().to_sym] = field
         p field_id
       end
       print @fields
