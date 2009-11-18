@@ -54,10 +54,11 @@ spec = Gem::Specification.new do |s|
   s.summary = "A framework in ruby to test your extjs applications with selenium "
   s.files = FileList["{lib}/**/*"].to_a
   s.has_rdoc = false
-  s.extra_rdoc_files = ["README"]  
+  s.extra_rdoc_files = ["README.rdoc"]  
   s.require_paths = ["lib"]
-  # TODO: add dependency selenium-client (1.2.17)
 end
+# TODO: add dependency selenium-client (1.2.17)
+ 
  
 Rake::GemPackageTask.new spec do |pkg|
   # pkg.need_tar = true
