@@ -7,7 +7,7 @@ class EditGridTest < Test::Unit::TestCase
 
   include Setup
 
-  def test_grid  
+  def test_edit_grid  
     # TODO: add aserts.
     @s.open 'deploy/dev/examples/grid/edit-grid.html'
 
@@ -22,8 +22,8 @@ class EditGridTest < Test::Unit::TestCase
     # search for editorgrid component.
     editorgrid = @s.find_ext(:xtype => "editorgrid")
 
-    # number of lines (on store?) 
-    print editorgrid.num_rows()
+    # number of rows
+    assert_equal editorgrid.num_rows(), 36
 
     # set row 1 with data
     editorgrid.edit_row(1, ["Jorge", "Shade", "10.10", "24/03/06", true]);
@@ -33,7 +33,6 @@ class EditGridTest < Test::Unit::TestCase
 
     # clica at cell x,y
     editorgrid.click_at_cell(2, 5)
-    sleep 10
   end
   
   def test_add_plant

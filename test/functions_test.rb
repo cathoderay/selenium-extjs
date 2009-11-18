@@ -32,7 +32,6 @@ class FunctionTest < Test::Unit::TestCase
     assert_equal Ext::arguments("string"), '"string"'
     assert_equal Ext::arguments(1), '1'
     assert_equal Ext::arguments(true), 'true'
-
   end
 
   # def test_call_method
