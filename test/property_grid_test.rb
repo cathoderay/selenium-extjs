@@ -21,11 +21,12 @@ class EditGridTest < Test::Unit::TestCase
   end
   
   def test_update_source
+
     button = @s.find_ext(:xtype => 'button', :text => 'Update source')
     button.click
     
     # assert if changed.
-    
+      
   end
   
 end
