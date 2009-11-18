@@ -27,35 +27,39 @@ Please, take a look at "/test" files.
 
 ===Simple
 
-	appfeedgrid = Ext::find(:xtype => "appfeedgrid")
+	@selenium = [..your selenium object..]
 
-	button = Ext::find(:xtype => "button", :text => 'Open All', :xparent => appfeedgrid)
+	appfeedgrid = @selenium.find_ext(:xtype => "appfeedgrid")
+
+	button = @selenium.find_ext(:xtype => "button", :text => 'Open All', :xparent => appfeedgrid)
+	
 	# click method wait for any request complete
 	button.click
 
 === Working with Form
 
 	# search for form.
-	form = Ext::find(:xtype => "form", :title_has => 'Simple')
+	form = @selenium.find_ext(:xtype => "form", :title_has => 'Simple')
 
-	# change every field at form.
-	form.fields.each do |name, field|
-	  p field.value = "Loren Ipsun"
-	end
+	form.field[:email].value = "NotAEmail"
 
-	p form.fields[:email].has_error?
+	# convert to "isValid" and run at client.
+	assert_false form.field[:email].valid?
+
 	form.fields[:email].value = 'myemail@domain.br'
-	p form.fields[:email].has_error?
+	
+	assert_true form.field[:email].valid?
+	
 
 === Working with Grid and Ajax Content.
 
 	# :wait blocks test, waiting for window
-	window = Ext::find(:xtype => 'window', :wait => true, :title => 'Store Load Callback')
+	window = @selenium.find_ext(:xtype => 'window', :wait => true, :title => 'Store Load Callback')
 	# close the window
 	window.close
 
 	# search for editorgrid component.
-	editorgrid = Ext::find(:xtype => "editorgrid")
+	editorgrid = @selenium.find(:xtype => "editorgrid")
 
 	# number of lines
 	print editorgrid.num_rows()

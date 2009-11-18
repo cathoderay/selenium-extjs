@@ -1,39 +1,28 @@
 
-require "rubygems"
-require "selenium/client"
-
-$LOAD_PATH.unshift("../lib")
+require 'test/unit'
 require 'selenium-extjs'
+require 'setup'
 
-begin
 
-  s = Ext::Selenium.new \
-  :host              => "localhost",
-  :port              => 4444,
-  :browser           => "*firefox",
-  :url               => "http://www.extjs.com/",
-  :timeout_in_second => 60
+class TabTest < Test::Unit::TestCase  
 
-  s.start_new_browser_session
-  s.open 'deploy/dev/examples/tabs/tabs.html'
+  include Setup
 
-  tabpanel = s.find_ext(:xtype => "tabpanel")
+  def test_active_panel
 
-  
-  p "active panel:" + tabpanel.getActiveTab().title
+    s.open 'deploy/dev/examples/tabs/tabs.html'
 
-  # work with position
-  p tabpanel.active_tab = 2
+    tabpanel = s.find_ext(:xtype => "tabpanel")
 
-  p tabpanel.getActiveTab().title
-  p tabpanel.getActiveTab().title == "Long Text"
-  
-  sleep 10
+    assert_equal tabpanel.class, TabPanel
 
-ensure
-  s.close_current_browser_session    
+    assert_equal tabpanel.getActiveTab().title, "Short Text"
+
+    tabpanel.active_tab = 2
+
+    assert_equal tabpanel.getActiveTab().title, "Long Text"
+  end
 end
-
 
 
 

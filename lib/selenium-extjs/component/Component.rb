@@ -1,4 +1,6 @@
 
+require 'json'
+
 module Ext
 	class Component
     attr_accessor :parent
@@ -18,55 +20,36 @@ module Ext
     # obj.items_component_array -> serializar o retorno em uma lista
     # tratar obj.store
 
+    def method_missing(method_name, *args, &block)
 
-    def method_missing(m, *args, &block)
-      prefix = "window.Ext.getCmp('#{@id}')"
+      #
+      cmp = "window.Ext.getCmp('#{@id}')"
      
       # TODO: unit for validate this :p
       # registered?
       # is_registered
       # isRegistered()
-      m = m.to_s
-
-      if m.end_with? "?"
-         m.chop!
-         m = "is_" + m   
-      end
 
       if m.end_with? "="
-         m.chop!
-         m = "get_" + m   
+        # set value?
       end
+      
+      # convert method name to ext model.
+      method_name = Ext::extfy(method_name.to_s)
 
-      tokens = m.split("_")
-      if ( tokens.length > 1 )
-        new_name = tokens.shift()
-        new_name += tokens.map{|c| c.capitalize() }.join("")
-      else
-        new_name = m
-      end
+      # build js arguments list
+      arguments = Ext::arguments(args)
 
-      #TODO: tratar o erro e verificar se o method existe  
-      cmd = "(function(_s) { if(typeof _s.#{new_name} == 'function') { return _s.#{new_name}("
-      args.each do |p| 
-        if p.is_a? String
-          cmd += "'#{p}',"
-        elsif p.is_a? Fixnum
-          cmd += "#{p},"
+      # move to selenium.
+      cmd = Ext::build_remote_call(@id, method_name, arguments)
+      ret = @selenium.get_eval(cmd)
+
+      if ret.is_a? Hash
+        if ret.has_key? 'id'
+          return @selenium.get_cmp(id, nil)
         else
-          cmd += "#{p},"
+          return ret
         end
-      end
-      cmd.chop! if cmd.end_with? ","
-      cmd += "); } else { return _s.#{new_name}; }})(#{prefix})"
-
-      new_cmd = "(function(_obj) { return (_obj.getId)?('\@ID:'+_obj.getId()):_obj; })(#{cmd});";
-
-      ret = @selenium.get_eval(new_cmd);
-
-      if ret.start_with? "@ID:"
-        id = ret.split(":")[1]
-        @selenium.get_cmp(id, nil)
       else
         return ret
       end

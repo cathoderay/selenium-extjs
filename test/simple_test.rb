@@ -1,27 +1,23 @@
 
-require "rubygems"
-require "selenium/client"
-
-$LOAD_PATH.unshift("../lib")
+require 'test/unit'
 require 'selenium-extjs'
+require 'setup'
 
-begin
-  s = Ext::Selenium.new \
-  :host              => "localhost",
-  :port              => 4444,
-  :browser           => "*firefox",
-  :url               => "http://www.extjs.com/",
-  :timeout_in_second => 60
+class SimpleTest < Test::Unit::TestCase  
+  
+  include Setup
+  
+  def test_simple
+    
+    @s.open 'deploy/dev/examples/feed-viewer/view.html'
+    appfeedgrid = @s.find_ext(:xtype => "appfeedgrid")
 
-  s.start_new_browser_session
-  s.open 'deploy/dev/examples/feed-viewer/view.html'
-  appfeedgrid = s.find_ext(:xtype => "appfeedgrid")
+    appfeedgrid.highlight
+    sleep 5
 
-  appfeedgrid.highlight
-  sleep 5
- 
-  button = s.find_ext(:xtype => "button", :text => 'Open All', :xparent => appfeedgrid)
-  button.click  
+    button = @s.find_ext(:xtype => "button", :text => 'Open All', :xparent => appfeedgrid)
+    button.click  
+  end
 end
 
 
