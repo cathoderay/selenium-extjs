@@ -1,12 +1,7 @@
 
 module Ext
-	class Field < Component
+	class Combo < Field
 
-#	  attr_reader :name
-#	  def init_component()
-#  	  @name = @selenium.get_eval("window.Ext.getCmp('#{@id}').getName()");
-#    end
-    
     def value= (v)
       @selenium.type(@id, v)
       blur
@@ -16,12 +11,6 @@ module Ext
       @selenium.fire_event(@id, "blur")
     end
 
-    # user valid?
-    #def has_error?
-    #  # using Ext.JS
-    #  @selenium.get_eval("window.Ext.getCmp('#{@id}').isValid()") != "true"
-    #end
-    
     def value
       # xpath or Ext?
       # TODO: get more information from field (textarea or input[type=text])

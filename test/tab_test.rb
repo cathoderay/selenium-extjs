@@ -10,11 +10,11 @@ class TabTest < Test::Unit::TestCase
 
   def test_active_panel
 
-    s.open 'deploy/dev/examples/tabs/tabs.html'
+    @s.open 'deploy/dev/examples/tabs/tabs.html'
 
-    tabpanel = s.find_ext(:xtype => "tabpanel")
+    tabpanel = @s.find_ext(:xtype => "tabpanel")
 
-    assert_equal tabpanel.class, TabPanel
+    assert tabpanel.is_a? Ext::TabPanel
 
     assert_equal tabpanel.getActiveTab().title, "Short Text"
 

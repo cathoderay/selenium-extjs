@@ -1,8 +1,6 @@
 
 require "rubygems"
 require "selenium/client"
-
-$LOAD_PATH.unshift("../lib")
 require 'selenium-extjs'
 
 module Setup
@@ -17,6 +15,7 @@ module Setup
   end
 
   def teardown()
+    sleep 5
     @s.close_current_browser_session 
   end
 end

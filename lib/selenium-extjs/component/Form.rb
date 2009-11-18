@@ -8,14 +8,13 @@ module Ext
    
 	    # load all fields.
 	    fields = @selenium.get_eval("window.Ext.getCmp('#{@id}').findBy(function(el) { return el.getXTypes().indexOf('/field/') != -1 }).map(function(el) { return el.getId() })");
-      print fields
       @fields = {}
       fields.split(",").each do |field_id|
         field = @selenium.get_cmp(field_id, self);
         @fields[field.getName().to_sym] = field
         p field_id
       end
-      print @fields
+#      print @fields
       
     end
 

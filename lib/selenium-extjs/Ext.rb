@@ -1,7 +1,7 @@
 
 require 'rubygems'
 require 'selenium/client'
-# require 'selenium-extjs/Selenium'
+require 'selenium-extjs/Selenium'
 require 'selenium-extjs/component/Component'
 require 'selenium-extjs/component/Button'
 require 'selenium-extjs/component/Field'
@@ -9,6 +9,8 @@ require 'selenium-extjs/component/Form'
 require 'selenium-extjs/component/Grid'
 require 'selenium-extjs/component/Panel'
 require 'selenium-extjs/component/Window'
+require 'selenium-extjs/component/Combo'
+
 require 'json'
 
 
@@ -25,7 +27,12 @@ module Ext
     "(TODO)"
   end
 
+  def self.condition_xtype(xtype)
+    "(el.getXType() == '#{xtype}')"  
+  end
+
   def self.condition_default(key, value)
+    key = key.to_s if key.is_a? Symbol
     ret = "("
     if key.end_with? '_has'
       key = key.gsub(/_has$/, '')
@@ -55,11 +62,11 @@ module Ext
     code << "    r = _.#{method_name};"
     code << "  }"
     code << "  if (typeof r.getId == 'function') {" # return hash map
-    code << "    return Ext.util.JSON.encode({\"id\":r.getId()});"
+    code << "    return 'JSON:' + window.Ext.util.JSON.encode({\"cmpid\":r.getId()});"
     code << "  } else {"
     code << "    return r;"
     code << "  }"
-    code << "}(window.Ext.getCmp('#{id}'));"
+    code << "})(window.Ext.getCmp('#{id}'));"
     (code.collect {|t| t.strip }).join
   end
   
@@ -101,7 +108,8 @@ module Ext
     :form => Form,
     :field => Field,
     :panel => Panel,
-    :tabpanel => TabPanel
+    :tabpanel => TabPanel,
+    :combo => Combo
   }.each do | xtype, cls |
     Ext::reg(xtype, cls)
   end

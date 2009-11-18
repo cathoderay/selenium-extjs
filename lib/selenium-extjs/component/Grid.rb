@@ -22,46 +22,30 @@ module Ext
         begin
           data_index = @selenium.get_eval("window.Ext.getCmp('#{@id}').colModel.columns[#{idx}].dataIndex");
           text = @selenium.get_text(node() + "//div[contains(@class,'x-grid3-body')]//div[#{row}]//table//td[#{idx+1}]")
-          p data_index 
-          p text
-          ret[data_index] = text
-          sleep 1
+          ret[data_index.to_sym] = text
         rescue Selenium::CommandError => ex
           p ex
         end
       end
-      p ret
+      ret
     end
     
     def edit_row(row, data)
       len = @selenium.get_eval("window.Ext.getCmp('#{@id}').colModel.columns.length").to_i
-      p "> len"
-      p len
-      
-      p "editores"
-      
       len.times().each do |idx|
         print "window.Ext.getCmp('#{@id}').colModel.columns[#{idx}].getEditor().getId()"
         begin
           editable = @selenium.get_eval("window.Ext.getCmp('#{@id}').colModel.columns[#{idx}].getEditor().getId()");
           click_at_cell(row, idx + 1)
-          @selenium.highlight(node() + "//div[contains(@class,'x-grid3-body')]//div[#{row}]//table//td[#{idx+1}]")
+#          @selenium.highlight(node() + "//div[contains(@class,'x-grid3-body')]//div[#{row}]//table//td[#{idx+1}]")
+          @selenium.wait_for_component_visible(editable)
           @selenium.type(node() + "//*[@id='#{editable}']", data[idx])
           @selenium.fire_event(node() + "//*[@id='#{editable}']", "blur")
           sleep 1
         rescue RuntimeError => ex
           p ex
         end
-        # print editable
-        # p editor_id
-        
       end
-      
-      # t = 1
-      # data.each do |data|
-      #   @selenium.get_eval("window.Ext.getCmp")
-      #   
-      # end
     end
 
     # //div[contains(@class,"x-grid3-body")]//div[2]//table//td[3]

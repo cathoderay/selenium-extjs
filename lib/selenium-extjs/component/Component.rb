@@ -30,8 +30,8 @@ module Ext
       # is_registered
       # isRegistered()
 
-      if m.end_with? "="
-        # set value?
+      if method_name.to_s.end_with? "="
+        return nil
       end
       
       # convert method name to ext model.
@@ -43,10 +43,18 @@ module Ext
       # move to selenium.
       cmd = Ext::build_remote_call(@id, method_name, arguments)
       ret = @selenium.get_eval(cmd)
+      if ret.start_with? "JSON:"
+        ret = JSON ret.split(":", 2)[1]
+      end
+
+      if ret == "true" || ret == "false"
+        ret = (ret =="true")
+      end
+
 
       if ret.is_a? Hash
-        if ret.has_key? 'id'
-          return @selenium.get_cmp(id, nil)
+        if ret.has_key? "cmpid"
+          return @selenium.get_cmp(ret["cmpid"], nil)
         else
           return ret
         end

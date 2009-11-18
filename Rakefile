@@ -32,7 +32,7 @@ Selenium::Rake::RemoteControlStartTask.new do |rc|
   rc.background = true
   rc.wait_until_up_and_running = true
   rc.jar_file = "server/selenium-server.jar"
-  rc.additional_args << "-singleWindow"
+  rc.additional_args << "-singleWindow -browserSessionReuse"
 end
 
 Selenium::Rake::RemoteControlStopTask.new do |rc|

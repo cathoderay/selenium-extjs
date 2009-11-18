@@ -1,8 +1,5 @@
 
 require 'test/unit'
-
-$LOAD_PATH.unshift("../lib")
-
 require 'selenium-extjs'
 
 class FunctionTest < Test::Unit::TestCase
