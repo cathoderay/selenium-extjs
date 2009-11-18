@@ -3,13 +3,15 @@ require 'rubygems'
 require 'selenium/client'
 require 'selenium-extjs/Selenium'
 require 'selenium-extjs/component/Component'
+require 'selenium-extjs/component/Panel'
 require 'selenium-extjs/component/Button'
 require 'selenium-extjs/component/Field'
 require 'selenium-extjs/component/Form'
 require 'selenium-extjs/component/Grid'
-require 'selenium-extjs/component/Panel'
 require 'selenium-extjs/component/Window'
 require 'selenium-extjs/component/Combo'
+require 'selenium-extjs/component/FieldSet'
+
 
 require 'json'
 
@@ -109,7 +111,8 @@ module Ext
     :field => Field,
     :panel => Panel,
     :tabpanel => TabPanel,
-    :combo => Combo
+    :combo => Combo,
+    :fieldset => FieldSet
   }.each do | xtype, cls |
     Ext::reg(xtype, cls)
   end

@@ -42,6 +42,8 @@ module Ext
 
       # move to selenium.
       cmd = Ext::build_remote_call(@id, method_name, arguments)
+      p cmd
+      
       ret = @selenium.get_eval(cmd)
       if ret.start_with? "JSON:"
         ret = JSON ret.split(":", 2)[1]
@@ -54,6 +56,8 @@ module Ext
 
       if ret.is_a? Hash
         if ret.has_key? "cmpid"
+          p "---->"
+          p ret
           return @selenium.get_cmp(ret["cmpid"], nil)
         else
           return ret

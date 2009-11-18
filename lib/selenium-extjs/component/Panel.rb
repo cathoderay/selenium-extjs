@@ -10,6 +10,7 @@ module Ext
         cmp = get(n)
         cmp.parent = self
 	      @items << cmp
+        # p cmp
         #Ext::build_cmp(@selenium.get_eval("window.Ext.getCmp('#{@id}').get(#{n}).getId()"), self)
       end
     end
