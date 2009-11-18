@@ -7,6 +7,10 @@ More information about extjs and selenium tests:
 * http://www.xeolabs.com/portal/articles/selenium-and-extjs
 * http://stackoverflow.com/questions/107314/any-suggestions-for-testing-extjs-code-in-a-browser-preferably-with-selenium
 
+== How it works?
+
+It's used the 'get_eval' to get Ext's components information (like id) using the window.Ext object and common selenium methods (like: type, click_at) to change the application status.
+
 ==Instalation
 
 # TODO: deploy gem

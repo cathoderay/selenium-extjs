@@ -18,7 +18,7 @@ class FunctionTest < Test::Unit::TestCase
     assert_equal Ext::extfy("method"), "method"
   end
 
-  def test_for_boolean_method
+  def test_for_boolean_method 
     assert_equal Ext::extfy("valid?"), "isValid"
   end
   
