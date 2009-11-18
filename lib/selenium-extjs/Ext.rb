@@ -21,6 +21,18 @@ module Ext
     Ext::ComponentMgr.create(xtype, cls)
   end   
   
+
+  def self.condition_default(key, value)
+    ret = "("
+    if key.end_with? '_has'
+      key = key.gsub(/_has$/, '')
+      ret += "( typeof el.initialConfig.#{key} == 'string' && el.initialConfig.#{key}.indexOf('#{value}') != -1 ) || "
+    end
+    ret += "( el.initialConfig.#{key} && el.initialConfig.#{key} == '#{value}')"
+    ret += ")"
+    ret
+  end
+
   # build arguments list.
   def self.arguments(args)
     if args.is_a? Array
