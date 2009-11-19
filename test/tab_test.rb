@@ -23,7 +23,3 @@ class TabTest < Test::Unit::TestCase
     assert_equal tabpanel.getActiveTab().title, "Long Text"
   end
 end
-
-
-
-

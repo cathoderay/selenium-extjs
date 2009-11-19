@@ -16,7 +16,3 @@ class SimpleTest < Test::Unit::TestCase
   end
 
 end
-
-
-
-

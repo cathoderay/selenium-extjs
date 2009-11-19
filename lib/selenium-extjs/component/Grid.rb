@@ -1,15 +1,13 @@
 
 module Ext
 	class Grid < Component
-  end
-
-	class EditorGrid < Grid	  
-
-    
     def click_at_cell(x,y)
       @selenium.click_at(node() + "//div[contains(@class,'x-grid3-body')]//div[#{x}]//table//td[#{y}]", "0,0")
     end
-    
+  end
+
+	class EditorGrid < Grid	  
+       
     # number of lines of Grid (store!)
     def num_rows()
       @selenium.get_eval("window.Ext.getCmp('#{@id}').getStore().getCount()").to_i

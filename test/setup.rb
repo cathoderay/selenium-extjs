@@ -19,7 +19,3 @@ module Setup
     @s.close_current_browser_session 
   end
 end
-
-
-
-

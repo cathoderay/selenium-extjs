@@ -12,7 +12,6 @@ require 'selenium-extjs/component/Window'
 require 'selenium-extjs/component/Combo'
 require 'selenium-extjs/component/FieldSet'
 
-
 require 'json'
 
 
