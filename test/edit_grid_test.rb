@@ -36,12 +36,18 @@ class EditGridTest < Test::Unit::TestCase
     line_3 = editorgrid.get_row(3)
 
     assert_equal line_3[:price], "$4.59"
+    assert_equal line_3[:common], "Bee Balm"
+    assert_equal line_3[:light], "Shade"
+    assert_equal line_3[:availDate], "May 03, 2006"
+    assert_equal line_3[:indoor], ""
 
-#"price"=>"$4.59", "common"=>"Bee Balm", "light"=>"Shade", "availDate"=>"May 03, 2006", "indoor"=>""}
+    # click at cell x,y
+    editorgrid.click_at_cell(2, 5)
+    sleep 2
 
-
-    # clica at cell x,y
-    #editorgrid.click_at_cell(2, 5)
+    #click at row with label
+    editorgrid.click_at_row("Anemone")
+    sleep 2
   end
   
   def off_test_add_plant

@@ -4,9 +4,13 @@ module Ext
     def click_at_cell(x,y)
       @selenium.click_at(node() + "//div[contains(@class,'x-grid3-body')]//div[#{x}]//table//td[#{y}]", "0,0")
     end
+
+    def click_at_row(label)
+      @selenium.click_at(node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and contains(text(), '#{label}')]", "0,0")
+    end
   end
 
-	class EditorGrid < Grid	  
+	class EditorGrid < Grid
        
     # number of lines of Grid (store!)
     def num_rows()
