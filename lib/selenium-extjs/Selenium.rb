@@ -5,12 +5,11 @@ module Ext
     end  
 
     def find_ext(args)
-      if args.kind_of? Hash        
+      if args.kind_of? Hash
         exp = ""
-        parent = nil
-        
+        parent = nil        
         xtype = nil
-        filters = []        
+        filters = []
         args.each do |k,v|
           filters << case k
             # use para botões.
@@ -58,11 +57,15 @@ module Ext
 
     def get_cmp(id, parent=nil)
       xtypes = get_eval("window.Ext.getCmp('#{id}').getXTypes()")
-      selected_xtype = nil
+      selected_xtype = :component
+      
       for xtype in xtypes.split("/").reverse() do
-        if Ext::ComponentMgr::registered? xtype.to_sym
-          selected_xtype = xtype.to_sym
+        if Ext::ComponentMgr::registered? xtype
+          selected_xtype = xtype
           break
+        elsif Ext::ComponentMgr::registered? xtype.to_sym
+          selected_xtype = xtype.to_sym
+          break          
         end
       end
       return Ext::ComponentMgr::create selected_xtype, id, parent, self
