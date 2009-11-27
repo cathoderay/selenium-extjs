@@ -8,6 +8,10 @@ module Ext
     def click_at_row(label)
       @selenium.click_at(node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and contains(text(), '#{label}')]", "0,0")
     end
+
+    def has_row(label)
+      @selenium.is_element_present(node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and contains(text(), '#{label}')]") 
+    end
   end
 
 	class EditorGrid < Grid
@@ -33,13 +37,12 @@ module Ext
     end
     
     def edit_row(row, data)
-      len = @selenium.get_eval("window.Ext.getCmp('#{@id}').colModel.columns.length").to_i
+      columns = "(window.Ext.getCmp('#{@id}').colModel.columns || window.Ext.getCmp('#{@id}').colModel.config)"
+      len = @selenium.get_eval("#{columns}.length").to_i
       len.times().each do |idx|
-        print "window.Ext.getCmp('#{@id}').colModel.columns[#{idx}].getEditor().getId()"
         begin
-          editable = @selenium.get_eval("window.Ext.getCmp('#{@id}').colModel.columns[#{idx}].getEditor().getId()");
+          editable = @selenium.get_eval("#{columns}[#{idx}].getEditor().getId()");
           click_at_cell(row, idx + 1)
-#          @selenium.highlight(node() + "//div[contains(@class,'x-grid3-body')]//div[#{row}]//table//td[#{idx+1}]")
           @selenium.wait_for_component_visible(editable)
           @selenium.type(node() + "//*[@id='#{editable}']", data[idx])
           @selenium.fire_event(node() + "//*[@id='#{editable}']", "blur")

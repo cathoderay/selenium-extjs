@@ -8,8 +8,6 @@ class EditGridTest < Test::Unit::TestCase
   include Setup
 
   def test_edit_grid  
-    # TODO: add aserts.
-
     @s.open '/deploy/dev/examples/grid/edit-grid.html'
 
     # wait for window.

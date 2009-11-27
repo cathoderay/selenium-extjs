@@ -7,7 +7,7 @@ module Ext
     def find_ext(args)
       if args.kind_of? Hash
         exp = ""
-        parent = nil        
+        parent = nil
         xtype = nil
         filters = []
         args.each do |k,v|
@@ -45,7 +45,7 @@ module Ext
           wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ return (#{exp}); })")
         end
         
-        id = get_eval("window.Ext.ComponentMgr.all.find(function(el){ return (#{exp}); }).getId()")
+        id = get_eval("window.Ext.ComponentMgr.all.find(function(el){ try { return (#{exp}); } catch(e) {return false;} }).getId()")
 
         return get_cmp(id, parent)
       end
@@ -58,7 +58,6 @@ module Ext
     def get_cmp(id, parent=nil)
       xtypes = get_eval("window.Ext.getCmp('#{id}').getXTypes()")
       selected_xtype = :component
-      
       for xtype in xtypes.split("/").reverse() do
         if Ext::ComponentMgr::registered? xtype
           selected_xtype = xtype
