@@ -14,7 +14,7 @@ module Ext
           filters << case k
             # use para botões.
             when :icon_cls
-              " (el.iconCls?(el.iconCls.indexOfind_extf('#{v}') != -1):false) "
+              " (el.iconCls?(el.iconCls.indexOf('#{v}') != -1):false) "
             when :title
               " (el.title?(el.title == '#{v}'):false) "
             when :title_has
