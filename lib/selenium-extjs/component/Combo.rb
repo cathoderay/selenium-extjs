@@ -6,7 +6,11 @@ module Ext
       @selenium.type(@id, v)
       blur
     end
-    
+
+    def focus
+      @selenium.fire_event(@id, "focus")
+    end
+
     def blur
       @selenium.fire_event(@id, "blur")
     end
