@@ -1,4 +1,3 @@
-
 = Selenium-extjs
 
 Please, it's work in progress - wait for complete features or help us :)
@@ -12,6 +11,9 @@ More information about extjs and selenium tests:
 It's used the 'get_eval' to get Ext's components information (like id) using the window.Ext object and common selenium methods (like: type, click_at) to change the application status.
 
 ==Instalation
+* gem install selenium-extjs
+
+==Instalation (from the source code)
 
 # TODO: deploy gem
 
