@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors = ["Ronald Andreu Kaiser"]
   s.date = %q{2009-11-18}
   s.email = %q{raios.catodicos@gmail.com}
-  s.extra_rdoc_files = ["README"]
-  s.files = ["lib/selenium-extjs.rb", "lib/selenium-extjs", "lib/selenium-extjs/Selenium.rb", "lib/selenium-extjs/Ext.rb", "lib/selenium-extjs/component", "lib/selenium-extjs/component/Grid.rb", "lib/selenium-extjs/component/Combo.rb", "lib/selenium-extjs/component/Component.rb", "lib/selenium-extjs/component/Panel.rb", "lib/selenium-extjs/component/Window.rb", "lib/selenium-extjs/component/Field.rb", "lib/selenium-extjs/component/Form.rb", "lib/selenium-extjs/component/Button.rb", "README"]
+  s.extra_rdoc_files = ["README.rdoc"]
+  s.files = ["lib/selenium-extjs.rb", "lib/selenium-extjs", "lib/selenium-extjs/Selenium.rb", "lib/selenium-extjs/Ext.rb", "lib/selenium-extjs/component", "lib/selenium-extjs/component/Grid.rb", "lib/selenium-extjs/component/Combo.rb", "lib/selenium-extjs/component/Component.rb", "lib/selenium-extjs/component/Panel.rb", "lib/selenium-extjs/component/Window.rb", "lib/selenium-extjs/component/Field.rb", "lib/selenium-extjs/component/Form.rb", "lib/selenium-extjs/component/Button.rb", "README.rdoc"]
   s.homepage = %q{http://github.com/cathoderay/selenium-extjs}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
@@ -24,4 +24,6 @@ Gem::Specification.new do |s|
     end
   else
   end
+
+  s.add_dependency 'selenium-client', '1.2.18'
 end
