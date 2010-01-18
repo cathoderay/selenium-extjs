@@ -86,3 +86,6 @@ Please, take a look at "/test" files.
 	editorgrid.click_at_cell(2, 5)
 
 
+== Problems?
+
+Contact us!
