@@ -11,6 +11,8 @@ require 'selenium-extjs/component/Grid'
 require 'selenium-extjs/component/Window'
 require 'selenium-extjs/component/Combo'
 require 'selenium-extjs/component/FieldSet'
+require 'selenium-extjs/component/BoxComponent'
+require 'selenium-extjs/component/Container'
 
 require 'json'
 
