@@ -3,6 +3,7 @@ module Ext
 	class Combo < Field
 
     def value= (v)
+      focus
       @selenium.type(@id, v)
       blur
     end
