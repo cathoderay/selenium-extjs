@@ -103,6 +103,8 @@ module Ext
   {
     :button => Button,
     :component => Component,
+    :container => Container,
+    :boxcomponent => BoxComponent,
     :grid => Grid,
     :editorgrid => EditorGrid,
     :window => Window,

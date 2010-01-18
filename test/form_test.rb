@@ -32,7 +32,7 @@ class FormTest < Test::Unit::TestCase
     assert  !form.fields[:email].valid?
     form.fields[:email].value = 'valid@email.br'
     assert  form.fields[:email].valid?
-
+    
     # combo don't implemented
   end
 
