@@ -40,9 +40,9 @@ module Ext
         exp = filters.compact().join(" && ")
         p "window.Ext.ComponentMgr.all.find(function(el){ return #{exp}  }).getId()"
 
-        # wait for element.
+        # wait for element.        
         if args.has_key?(:wait) && args[:wait]
-          wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ return (#{exp}); })")
+          wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}})")
         end
         
         id = get_eval("window.Ext.ComponentMgr.all.find(function(el){ try { return (#{exp}); } catch(e) {return false;} }).getId()")
