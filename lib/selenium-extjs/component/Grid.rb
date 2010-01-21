@@ -12,10 +12,18 @@ module Ext
     def has_row(label)
       @selenium.is_element_present(node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and contains(text(), '#{label}')]") 
     end
+
+    def wait_for_row(label, timeout=30)
+        exp = node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and contains(text(), '#{label}')]"
+        t0 = Time.now
+        while true
+            return true if @selenium.is_element_present(exp)
+            return false if (Time.now - t0) > timeout
+        end
+    end
   end
 
 	class EditorGrid < Grid
-       
     # number of lines of Grid (store!)
     def num_rows()
       @selenium.get_eval("window.Ext.getCmp('#{@id}').getStore().getCount()").to_i
