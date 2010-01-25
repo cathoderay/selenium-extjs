@@ -4,6 +4,23 @@ module Ext
       super(args)
     end  
 
+    def open(url) 
+      add_script "selenium.last_events = {};", nil       
+      super(url)
+
+      #getting events from stores
+      add_script("var _store = selenium.browserbot.getCurrentWindow().Ext.data.Store; 
+                          var _load = _store.prototype.load; _store.prototype.load = function() { 
+                                                  delete selenium.last_events[this]; _load.apply(this, arguments); 
+                                             };
+                          var _fireEvent = _store.prototype.fireEvent; 
+                          _store.prototype.fireEvent = function(evt) { 
+                                                                            if(evt=='load') { 
+                                                                                selenium.last_events[arguments[1]] = true; 
+                                                                            };
+                       _fireEvent.apply(this, arguments) };", nil)
+    end
+
     def find_ext(args)
       if args.kind_of? Hash
         exp = ""

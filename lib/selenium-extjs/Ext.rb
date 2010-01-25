@@ -20,18 +20,18 @@ require 'json'
 module Ext
   def self.reg(xtype, cls)
     Ext::ComponentMgr.register_type(xtype, cls)
-  end   
+  end
 
   def self.create(xtype, id, parent, selenium)
     Ext::ComponentMgr.create(xtype, cls)
-  end   
-  
+  end
+
   def self.condition_parent(cmp)
     "(TODO)"
   end
 
   def self.condition_xtype(xtype)
-    "(el.getXType() == '#{xtype}')"  
+    "(el.getXType() == '#{xtype}')"
   end
 
   def self.condition_default(key, value)
@@ -51,28 +51,31 @@ module Ext
     if args.is_a? Array
       return args.to_json[1..-2] || ""
     else
-      return args.to_json
+      return args.to_json 
     end
   end
-  
+
   def self.build_remote_call(id, method_name, arguments)
     code = []
     code << "(function(_) {"
-    code << "  var r;"
+    code << "var r;"
     code << "  if (typeof _.#{method_name} == 'function') {"
     code << "    r = _.#{method_name}(#{arguments});"
     code << "  } else {"
-    code << "    r = _.#{method_name};"
+    code << "  r = _.#{method_name};"
     code << "  }"
-    code << "  if (typeof r.getId == 'function') {" # return hash map
+    code << "if (r != undefined && 'getId' in r && typeof r.getId == 'function' ) {" # return hash map
     code << "    return 'JSON:' + window.Ext.util.JSON.encode({\"cmpid\":r.getId()});"
     code << "  } else {"
     code << "    return r;"
     code << "  }"
     code << "})(window.Ext.getCmp('#{id}'));"
     (code.collect {|t| t.strip }).join
+    puts "code generated"
+    puts code
+    return (code.collect {|t| t.strip }).join
   end
-  
+
   # convert some ruby-style methods to ext-style
   def self.extfy(method_name)
     if method_name.end_with? '?'
@@ -96,11 +99,11 @@ module Ext
     def self.registered?(xtype)
       @@all.has_key? xtype
     end
-  
+
     def self.create(xtype, id, parent, selenium)
       @@all[xtype].new(id, parent, selenium)
     end
-  end  
+  end
 
   {
     :button => Button,

@@ -11,6 +11,7 @@ module Setup
     :browser           => "*firefox",
     :url               => "http://www.extjs.com/",
     :timeout_in_second => 60
+    
     @s.start_new_browser_session
   end
 
