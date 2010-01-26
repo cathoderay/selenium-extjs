@@ -13,15 +13,13 @@ class EditGridTest < Test::Unit::TestCase
 
     # get editorgrid'
     editorgrid = @s.find_ext(:xtype => "editorgrid", :autoExpandColumn => "common")
-    editorgrid.wait_for_store_load
+#    editorgrid.wait_for_store_load
 
     # wait for window.
     window = @s.find_ext(:xtype => 'window', :wait => true, :title => 'Store Load Callback')
     assert_equal window.class, Ext::Window
     # close the window
     window.close
-
-     p @s.get_eval("selenium.last_events")
 
     # number of rows
     assert_equal editorgrid.num_rows(), 36

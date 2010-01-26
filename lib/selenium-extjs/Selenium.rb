@@ -4,22 +4,30 @@ module Ext
       super(args)
     end  
 
+=begin
     def open(url) 
       add_script "selenium.last_events = {};", nil       
       super(url)
 
       #getting events from stores
-      add_script("var _store = selenium.browserbot.getCurrentWindow().Ext.data.Store; 
-                          var _load = _store.prototype.load; _store.prototype.load = function() { 
-                                                  delete selenium.last_events[this]; _load.apply(this, arguments); 
-                                             };
-                          var _fireEvent = _store.prototype.fireEvent; 
-                          _store.prototype.fireEvent = function(evt) { 
-                                                                            if(evt=='load') { 
-                                                                                selenium.last_events[arguments[1]] = true; 
-                                                                            };
-                       _fireEvent.apply(this, arguments) };", nil)
+
+            add_script("
+      var _store = selenium.browserbot.getCurrentWindow().Ext.data.Store; 
+      var _load = _store.prototype.load;
+      _store.prototype.load = function() { 
+        _load.apply(this, arguments); 
+        delete selenium.last_events[this];
+       };
+      var _fireEvent = _store.prototype.fireEvent; 
+      _store.prototype.fireEvent = function(evt) { 
+        alert('fireEvent');
+        if(evt=='load') { 
+          selenium.last_events[arguments[1]] = true; 
+        }
+        _fireEvent.apply(this, arguments);
+      };", nil)
     end
+=end
 
     def find_ext(args)
       if args.kind_of? Hash
@@ -60,8 +68,9 @@ module Ext
         if args.has_key?(:wait) && args[:wait]          
           wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}})"  )
         end
-
+    
         id = get_eval("window.Ext.ComponentMgr.all.find(function(el){ try { return (#{exp}); } catch(e) {return false;} }).getId()")
+  
         return get_cmp(id, parent)
       end
     end

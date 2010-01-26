@@ -5,7 +5,7 @@ module Ext
 	class Component
     attr_accessor :parent
 
-	  def initialize(id, parent = nil, selenium = nil)
+    def initialize(id, parent = nil, selenium = nil)
 	    @id = id
 	    @parent = parent
 	    @selenium = selenium
@@ -54,8 +54,8 @@ module Ext
       # move to selenium.
       cmd = Ext::build_remote_call(@id, method_name, arguments)
       ret = @selenium.get_eval(cmd)
-      if ret.start_with? "JSON:"
         ret = JSON ret.split(":", 2)[1]
+      if ret.start_with? "JSON:"
       end
 
       if ret == "true" || ret == "false"
@@ -83,7 +83,19 @@ module Ext
 	  def node
 	    return "//div[@id='#{@id}']"
     end
-	  
+
+    def is_visible
+      return @selenium.is_visible(node())  
+    end
+
+    def wait_for_visible(timeout=10)
+      t0 = Time.now
+      while true
+        return true if is_visible
+        return false if (Time.now - t0) > timeout
+      end
+      end
+
 	  # xpath for this element.
 	  def selector
 	    p @parent

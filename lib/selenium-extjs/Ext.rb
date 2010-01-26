@@ -64,7 +64,7 @@ module Ext
     code << "  } else {"
     code << "  r = _.#{method_name};"
     code << "  }"
-    code << "if (r != undefined && 'getId' in r && typeof r.getId == 'function' ) {" # return hash map
+    code << "if (typeof r.getId == 'function' ) {" # return hash map
     code << "    return 'JSON:' + window.Ext.util.JSON.encode({\"cmpid\":r.getId()});"
     code << "  } else {"
     code << "    return r;"
