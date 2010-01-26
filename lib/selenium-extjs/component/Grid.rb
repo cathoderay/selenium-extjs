@@ -46,6 +46,7 @@ module Ext
     
     def edit_row(row, data)
       columns = "(window.Ext.getCmp('#{@id}').colModel.columns || window.Ext.getCmp('#{@id}').colModel.config)"
+      p columns
       len = @selenium.get_eval("#{columns}.length").to_i
       len.times().each do |idx|
         begin

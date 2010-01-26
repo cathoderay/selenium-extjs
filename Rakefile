@@ -19,12 +19,10 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = true
 end
 
-# CREATE CONSOLE FOR TESTING.
-# desc 'Console.'
-# task :shell do |t|
-#   chdir File.dirname(__FILE__)
-#   exec 'irb -I lib/ -I lib/selenium-exjs -r rubygems'
-# end
+ desc 'Console.'
+ task :shell do |t|
+   exec 'irb -r ./lib/selenium-extjs.rb'
+ end
 
 Selenium::Rake::RemoteControlStartTask.new do |rc|
   rc.port = 4444
@@ -57,8 +55,7 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files = ["README.rdoc"]  
   s.require_paths = ["lib"]
 end
-# TODO: add dependency selenium-client (1.2.17)
- 
+
  
 Rake::GemPackageTask.new spec do |pkg|
   # pkg.need_tar = true
