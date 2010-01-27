@@ -28,6 +28,7 @@ class EditGridTest < Test::Unit::TestCase
     # we can't work with check column
     editorgrid.edit_row(1, ["Jorge", "Sunny", "10.10", "24/03/06"]);
 
+
     # get row
     line_3 = editorgrid.get_row(3)
 
