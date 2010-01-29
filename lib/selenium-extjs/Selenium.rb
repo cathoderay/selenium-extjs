@@ -67,7 +67,6 @@ module Ext
         end
     
         id = get_eval("window.Ext.ComponentMgr.all.find(function(el){ try { return (#{exp}); } catch(e) {return false;} }).getId()")
-  
         return get_cmp(id, parent)
       end
     end

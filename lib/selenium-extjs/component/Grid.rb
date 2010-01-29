@@ -22,7 +22,7 @@ module Ext
           return true if not @selenium.is_visible(exp)
         rescue
           return true
-        end 
+        end
         return false if (Time.now - t0) > timeout
       end
     end
@@ -77,8 +77,8 @@ module Ext
 
           #check if the column is a checkbox
           colHeader =  @selenium.get_eval("#{colModel}.getColumnHeader(#{idx})")        
-          if /".*x-grid3-hd-checker.*"/.match colHeader
-            # todo set the checker with data[data_index] 
+          if /".*x-grid3-(hd)?-checker.*"/.match colHeader
+              #TODO set the checker with data[data_index]
             data_index += 1
             continue
           end              
