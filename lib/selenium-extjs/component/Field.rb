@@ -16,6 +16,10 @@ module Ext
       @selenium.fire_event(@id, "blur")
     end
 
+    def is_disabled
+      return @selenium.get_eval("window.Ext.getCmp('#{@id}').disabled") == "true"
+    end
+
     # user valid?
     #def has_error?
     #  # using Ext.JS

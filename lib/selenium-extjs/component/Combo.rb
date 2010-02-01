@@ -5,6 +5,8 @@ module Ext
     def value= (v)
       container_id = @selenium.get_eval("window.Ext.getCmp('#{@id}').container.id")
       @selenium.click_at "//div[@id='#{container_id}']//img[contains(@class, 'x-form-arrow-trigger')]", "0,0"
+
+      #TODO: check to wait for load when necessary (local/remote)
       if wait_for_list_load
         innerList_id = @selenium.get_eval("window.Ext.getCmp('#{@id}').innerList.id")
         @selenium.click_at "//div[@id='#{innerList_id}']//div[contains(text(), '#{v}')]", "0,0"
