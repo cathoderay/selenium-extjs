@@ -61,6 +61,42 @@ module Ext
       end
       ret
     end
+
+
+#    def edit_row(row, data)
+#      colModel = "window.Ext.getCmp('#{@id}').colModel"
+#      columns = "(window.Ext.getCmp('#{@id}').colModel.columns || window.Ext.getCmp('#{@id}').colModel.config)"
+#      
+#      len = @selenium.get_eval("#{columns}.length").to_i
+#      data_index = 0
+#      len.times().each do |idx|
+#        begin
+#          #if it's a hidden field pass to next
+#          if @selenium.get_eval("#{columns}[#{idx}].hidden") == "true"                        
+#            continue
+#          end
+
+#          #check if the column is a checkbox
+#          colHeader =  @selenium.get_eval("#{colModel}.getColumnHeader(#{idx})")        
+#          if /".*x-grid3-(hd)?-checker.*"/.match colHeader
+#              #TODO set the checker with data[data_index]
+#            data_index += 1
+#            continue
+#          end              
+
+#          editable = @selenium.get_eval("#{columns}[#{idx}].getEditor().getId()");
+#          click_at_cell(row, idx + 1)
+#          @selenium.wait_for_component_visible(editable)
+#          @selenium.type(node() + "//*[@id='#{editable}']", data[data_index])
+#          @selenium.fire_event(node() + "//*[@id='#{editable}']", "blur")
+#          data_index += 1
+#          sleep 1
+#        rescue RuntimeError => ex
+#          p ex
+#        end
+#      end
+#    end
+
     
     def edit_row(row, data)
       colModel = "window.Ext.getCmp('#{@id}').colModel"
@@ -68,26 +104,23 @@ module Ext
       
       len = @selenium.get_eval("#{columns}.length").to_i
       data_index = 0
-      len.times().each do |idx|
+      len.times().each do |col|
         begin
+
           #if it's a hidden field pass to next
-          if @selenium.get_eval("#{columns}[#{idx}].hidden") == "true"                        
+          if @selenium.get_eval("#{columns}[#{col}].hidden") == "true"                        
             continue
           end
 
           #check if the column is a checkbox
-          colHeader =  @selenium.get_eval("#{colModel}.getColumnHeader(#{idx})")        
+          colHeader =  @selenium.get_eval("#{colModel}.getColumnHeader(#{col})")        
           if /".*x-grid3-(hd)?-checker.*"/.match colHeader
               #TODO set the checker with data[data_index]
             data_index += 1
             continue
-          end              
+          end
 
-          editable = @selenium.get_eval("#{columns}[#{idx}].getEditor().getId()");
-          click_at_cell(row, idx + 1)
-          @selenium.wait_for_component_visible(editable)
-          @selenium.type(node() + "//*[@id='#{editable}']", data[data_index])
-          @selenium.fire_event(node() + "//*[@id='#{editable}']", "blur")
+          edit_cell(row, col, data[data_index])
           data_index += 1
           sleep 1
         rescue RuntimeError => ex
@@ -96,16 +129,18 @@ module Ext
       end
     end
 
-    # //div[contains(@class,"x-grid3-body")]//div[2]//table//td[3]
-	  # // x-grid3-viewport
-	  ## x-grid3-body
-	  ## x-grid3-row x-grid3-row-first
-	  ## //div[contains(@class,"x-grid3-body")]//div[2]
-	  ## //div[contains(@class,"x-grid3-body")]//div[2]//table//td[2]
-	  
-    # Ext.getCmp("ext-comp-1005").store.getAt(2).data
-    # Ext.getCmp("ext-comp-1005").colModel.columns
-    # Ext.getCmp("ext-comp-1005").colModel.columns[0].getEditor().getXType()
-    # x-grid3-col
+    def edit_cell(x, y, value)
+      columns = "(window.Ext.getCmp('#{@id}').colModel.columns || window.Ext.getCmp('#{@id}').colModel.config)"
+      if @selenium.get_eval("#{columns}[#{y}].hidden") == "true"                        
+        return false
+      end
+
+      editable = @selenium.get_eval("#{columns}[#{y}].getEditor().getId()");
+
+      click_at_cell(x, y + 1)
+      @selenium.wait_for_component_visible(editable)
+      @selenium.type(node() + "//*[@id='#{editable}']", value)
+      @selenium.fire_event(node() + "//*[@id='#{editable}']", "blur")
+    end
   end
 end

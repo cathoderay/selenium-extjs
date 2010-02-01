@@ -24,9 +24,12 @@ class EditGridTest < Test::Unit::TestCase
     # number of rows
     assert_equal editorgrid.num_rows(), 36
 
+    #edit a cell
+    editorgrid.edit_cell(3, 0, "test")
+
     # set row 1 with data
     # we can't work with check column
-    editorgrid.edit_row(1, ["Jorge", "Sunny", "10.10", "24/03/06"]);
+    editorgrid.edit_row(1, ["Jorge", "Sunny", "10.10", "24/03/06", true]);
 
     # get row
     line_3 = editorgrid.get_row(3)
