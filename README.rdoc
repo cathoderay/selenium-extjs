@@ -39,7 +39,7 @@ You need a Selenium RC and its Official Ruby Client. Luckily, there is a Seleniu
 * cd pkg
 * gem install selenium-extjs-0.0.1.gem
 
-Run a test:
+==Run your first test
 
 * rake selenium:rc:start
 * cd ../test
