@@ -39,8 +39,9 @@ You need a Selenium RC and its Official Ruby Client. Luckily, there is a Seleniu
 * cd pkg
 * gem install selenium-extjs-0.0.1.gem
 
-Run tests:
+Run a test:
 
+* rake selenium:rc:start
 * cd ../test
 * RUBYOPT=-rubygems ruby combobox_test.rb
 
