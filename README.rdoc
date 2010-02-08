@@ -1,16 +1,17 @@
 = Selenium-extjs
 
+This is a tasty Ruby DSL to test ExtJS applications using Selenium.
+
 Please, it's work in progress - wait for complete features or help us :)
 
-More information about extjs and selenium tests:
-* http://www.xeolabs.com/portal/articles/selenium-and-extjs
-* http://stackoverflow.com/questions/107314/any-suggestions-for-testing-extjs-code-in-a-browser-preferably-with-selenium
+Read more about testing ExtJS using Selenium:
+* {Selenium and ExtJS}[http://www.xeolabs.com/portal/articles/selenium-and-extjs]
+* {Suggestions for testing ExtJS code using Selenium}[http://stackoverflow.com/questions/107314/any-suggestions-for-testing-extjs-code-in-a-browser-preferably-with-selenium]
 
 == Roadmap
-* ComboBox Suport
-* Suporting all Fields
+* ComboBox Support
+* Supporting all Fields
 * Full Grid editor support
-
 
 == How it works?
 
@@ -25,7 +26,7 @@ change the application status.
 
 ===Prerequisites
 
-You need a Selenium RC and its Official Ruby Client. Luckily, there is a Selenium RC included as a .jar.
+You need a Selenium Server and its Official Ruby Client. Luckily, there is a Selenium RC included as a .jar.
 
 * gem install selenium-client
 
