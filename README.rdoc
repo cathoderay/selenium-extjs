@@ -9,17 +9,27 @@ More information about extjs and selenium tests:
 == Roadmap
 * ComboBox Suport
 * Suporting all Fields
-* Full Grid editor suport
+* Full Grid editor support
 
 
 == How it works?
 
-It's used the 'get_eval' to get Ext's components information (like id) using the window.Ext object and common selenium methods (like: type, click_at) to change the application status.
+It's used the 'get_eval' to get Ext's components information (like id) using
+the window.Ext object and common selenium methods (like: type, click_at) to
+change the application status.
 
-==Instalation
+==Installation
 * gem install selenium-extjs
 
-==Instalation (from the source code)
+==Installation (from the source code)
+
+===Prerequisites
+
+You need a Selenium RC and its Official Ruby Client. Luckily, there is a Selenium RC included as a .jar.
+
+* gem install selenium-client
+
+===Steps to install
 
 # TODO: deploy gem
 
@@ -29,13 +39,18 @@ It's used the 'get_eval' to get Ext's components information (like id) using the
 * cd pkg
 * gem install selenium-extjs-0.0.1.gem
 
+Run tests:
+
+* cd ../test
+* RUBYOPT=-rubygems ruby combobox_test.rb
+
 ==Contributing
 
 Send us a message!
 
 ==Some Examples
 
-Please, take a look at "/test" files.
+Please, take a look at the "/test" folder.
 
 ===Simple
 
@@ -48,14 +63,14 @@ Please, take a look at "/test" files.
 	# click method wait for any request complete
 	button.click
 
-=== Working with Form
+=== Working with Forms
 
-	# search for form.
+	# Search for form
 	form = @selenium.find_ext(:xtype => "form", :title_has => 'Simple')
 
 	form.field[:email].value = "NotAEmail"
 
-	# convert to "isValid" and run at client.
+	# Convert to "isValid" and run at client.
 	assert_false form.field[:email].valid?
 
 	form.fields[:email].value = 'myemail@domain.br'
@@ -63,26 +78,26 @@ Please, take a look at "/test" files.
 	assert_true form.field[:email].valid?
 	
 
-=== Working with Grid and Ajax Content.
+=== Working with Grid and Ajax Content
 
 	# :wait blocks test, waiting for window
 	window = @selenium.find_ext(:xtype => 'window', :wait => true, :title => 'Store Load Callback')
 	# close the window
 	window.close
 
-	# search for editorgrid component.
+	# Search for editorgrid component.
 	editorgrid = @selenium.find(:xtype => "editorgrid")
 
-	# number of lines
+	# Number of lines
 	print editorgrid.num_rows()
 
-	# set row 1 with data
+	# Set row 1 with data
 	editorgrid.edit_row(1, ["Jorge", "Shade", "10.10", "24/03/06", true]);
  
-	# get row (hash)
+	# Get row (hash)
 	print editorgrid.get_row(3)
  
-	# clica at cell x,y
+	# Click at cell x,y
 	editorgrid.click_at_cell(2, 5)
 
 

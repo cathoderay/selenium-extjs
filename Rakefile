@@ -49,7 +49,23 @@ spec = Gem::Specification.new do |s|
   s.email = "raios.catodicos@gmail.com"
   s.homepage = "http://github.com/cathoderay/selenium-extjs"
   s.platform = Gem::Platform::RUBY
-  s.summary = "A framework in ruby to test your extjs applications with selenium "
+  s.summary = "A framework in Ruby to test your ExtJS applications with Selenium"
+  s.description = %q{Get ready to Selenium-test your ExtJS in a simpler language!
+    
+    This Ruby DSL aims to ease testing your ExtJS applications.
+    
+    Simple, near-to-JavaScript-naming will help your QA efforts.
+      
+    We included a Selenium Server as a stand-alone bundled .jar. (v2.0 [a2], with Core v2.0 [a2]).
+    
+    Start the Selenium Server:
+    
+    rake selenium:rc:start
+    
+    Run the first test:
+    
+    cd test; RUBYOPT=-rubygems ruby combobox_test.rb
+  }
   s.files = FileList["{lib}/**/*"].to_a
   s.has_rdoc = false
   s.extra_rdoc_files = ["README.rdoc"]  
