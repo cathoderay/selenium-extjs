@@ -17,7 +17,7 @@ class EditGridTest < Test::Unit::TestCase
 
     # wait for window.
     window = @s.find_ext(:xtype => 'window', :wait => true, :title => 'Store Load Callback')
-    assert_equal window.class, Ext::Window
+    assert_equal Ext::Window, window.class
     # close the window
     window.close
 
@@ -34,11 +34,11 @@ class EditGridTest < Test::Unit::TestCase
     # get row
     line_3 = editorgrid.get_row(3)
 
-    assert_equal line_3[:price], "$4.59"
-    assert_equal line_3[:common], "Bee Balm"
-    assert_equal line_3[:light], "Shade"
-    assert_equal line_3[:availDate], "May 03, 2006"
-    assert_equal line_3[:indoor], ""
+    assert_equal "$4.59", line_3[:price]
+    assert_equal "test", line_3[:common]
+    assert_equal "Shade", line_3[:light]
+    assert_equal "May 03, 2006", line_3[:availDate]
+    assert_equal "", line_3[:indoor]
 
 #    # click at cell x,y
     editorgrid.click_at_cell(2, 5)
