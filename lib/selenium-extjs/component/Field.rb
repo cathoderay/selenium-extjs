@@ -11,9 +11,13 @@ module Ext
       @selenium.type(@id, v)
       blur
     end
-    
+
     def blur
       @selenium.fire_event(@id, "blur")
+    end
+
+    def is_valid
+        return @selenium.get_eval("window.Ext.getCmp('#{@id}').isValid(true)") == "true"
     end
 
     def is_disabled
