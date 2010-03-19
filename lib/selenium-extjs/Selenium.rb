@@ -4,25 +4,6 @@ module Ext
       super(args)
     end  
 
-=begin
-    def subscribe_store_load
-        add_script "selenium.last_events = {};
-        var _store = selenium.browserbot.getCurrentWindow().Ext.data.Store;
-        var _load = _store.prototype.load;
-        _store.prototype.load = function() {
-          _load.apply(this, arguments);
-          delete selenium.last_events[this];
-         };
-        var _fireEvent = _store.prototype.fireEvent;
-        _store.prototype.fireEvent = function(evt) {
-            if(evt=='load') {
-            selenium.last_events[arguments[1]] = true;
-          }
-          _fireEvent.apply(this, arguments);
-        };", nil
-    end
-=end
-
     def find_ext(args)
       if args.kind_of? Hash
         exp = ""
@@ -61,15 +42,10 @@ module Ext
         # wait for element.
         if args.has_key?(:wait) && args[:wait]           
           debug = wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}})", 10)
-#          p "\n>>>DEBUG\n"
-#          p '\nwait_for_condition(null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}}))\n'
-#          p debug
         end
     
         id = get_eval("window.Ext.ComponentMgr.all.find(function(el){ try { return (#{exp}); } catch(e) {return false;} }).getId()")
-#        p "\n>>>DEBUG\n"
-#        p '\nwindow.Ext.ComponentMgr.all.find(function(el){ try { return (#{exp}); } catch(e) {return false;} }).getId()\n'
-#        p id
+
         return get_cmp(id, parent)
       end
     end

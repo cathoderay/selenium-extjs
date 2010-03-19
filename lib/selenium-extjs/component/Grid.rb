@@ -88,7 +88,7 @@ module Ext
           data_index += 1
           sleep 1
         rescue RuntimeError => ex
-          p ex
+          #IGNORE
         end
       end
     end
