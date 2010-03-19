@@ -60,7 +60,7 @@ module Ext
 
         # wait for element.
         if args.has_key?(:wait) && args[:wait]           
-          debug = wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}})")
+          debug = wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}})", 10)
 #          p "\n>>>DEBUG\n"
 #          p '\nwait_for_condition(null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}}))\n'
 #          p debug
@@ -75,7 +75,7 @@ module Ext
     end
 
     def wait_for_component_visible(id)
-      wait_for_condition("window.Ext.getCmp('#{id}').isVisible()")
+      wait_for_condition("window.Ext.getCmp('#{id}').isVisible()", 10)
     end
 
     def get_cmp(id, parent=nil)

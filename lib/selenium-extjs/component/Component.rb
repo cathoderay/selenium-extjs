@@ -25,12 +25,12 @@ module Ext
 
     def wait_for_event(evt)
        #@selenium.get_eval("alert(window.#{evt}_#{self.object_id})");
-       @selenium.wait_for_condition("(typeof window.#{evt}_#{self.object_id} != 'undefined')")
+       @selenium.wait_for_condition("(typeof window.#{evt}_#{self.object_id} != 'undefined')", 10)
     end
 
     def wait_for_store_load
         cmd =  "(function(_) {  return (typeof selenium.last_events[_.getStore()] != 'undefined'); })(window.Ext.getCmp('#{@id}'));"
-        @selenium.wait_for_condition(cmd)
+        @selenium.wait_for_condition(cmd, 10)
     end
 
     def method_missing(method_name, *args, &block)
@@ -76,7 +76,7 @@ module Ext
     end  
 
 	  def wait_for_ajax
-	    @selenium.wait_for_condition("window.Ext.Ajax.isLoading() == false")
+	    @selenium.wait_for_condition("window.Ext.Ajax.isLoading() == false", 10)
     end
 	  
 	  # common tag element for this element
