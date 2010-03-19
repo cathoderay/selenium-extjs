@@ -58,15 +58,18 @@ module Ext
         end
         exp = filters.compact().join(" && ")
 
-        puts "find_ext assembled expression:"
-        puts exp
-      
         # wait for element.
-        if args.has_key?(:wait) && args[:wait]          
-          wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}})"  )
+        if args.has_key?(:wait) && args[:wait]           
+          debug = wait_for_condition("null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}})")
+#          p "\n>>>DEBUG\n"
+#          p '\nwait_for_condition(null != window.Ext.ComponentMgr.all.find(function(el){ try {return (#{exp});}catch(e) {return false;}}))\n'
+#          p debug
         end
     
         id = get_eval("window.Ext.ComponentMgr.all.find(function(el){ try { return (#{exp}); } catch(e) {return false;} }).getId()")
+#        p "\n>>>DEBUG\n"
+#        p '\nwindow.Ext.ComponentMgr.all.find(function(el){ try { return (#{exp}); } catch(e) {return false;} }).getId()\n'
+#        p id
         return get_cmp(id, parent)
       end
     end
@@ -77,6 +80,7 @@ module Ext
 
     def get_cmp(id, parent=nil)
       xtypes = get_eval("window.Ext.getCmp('#{id}').getXTypes()")
+      
       selected_xtype = :component
       for xtype in xtypes.split("/").reverse() do
         if Ext::ComponentMgr::registered? xtype

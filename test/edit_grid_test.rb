@@ -13,7 +13,7 @@ class EditGridTest < Test::Unit::TestCase
 
     # get editorgrid'
     editorgrid = @s.find_ext(:xtype => "editorgrid", :autoExpandColumn => "common")
-#    editorgrid.wait_for_store_load
+    #editorgrid.wait_for_store_load
 
     # wait for window.
     window = @s.find_ext(:xtype => 'window', :wait => true, :title => 'Store Load Callback')
