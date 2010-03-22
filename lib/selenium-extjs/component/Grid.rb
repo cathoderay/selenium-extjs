@@ -83,6 +83,16 @@ module Ext
             data_index += 1
             continue
           end
+    
+        #check if the column is a combo
+#          colHeader =  @selenium.get_eval("#{colModel}.getColumnHeader(#{col})")        
+
+#          if /".*x-grid3-(hd)?-checker.*"/.match colHeader
+#              #TODO set the checker with data[data_index]
+#            data_index += 1
+#            continue
+#          end
+#         "//div[contains(@class,'x-grid3-body')]//div[#{row}]//table//td[#{col}]//input[type]"
 
           edit_cell(row, col, data[data_index])
           data_index += 1
@@ -98,12 +108,21 @@ module Ext
 #      if @selenium.get_eval("#{columns}[#{y}].hidden") == "true"                        
 #        return false
 #      end
-
-      editable = @selenium.get_eval("#{columns}[#{y}].getCellEditor(#{x}).getId()");
+   
+      editor_id = @selenium.get_eval("#{columns}[#{y}].getCellEditor(#{x}).getId()");    
       click_at_cell(x, y + 1)
-      @selenium.wait_for_component_visible(editable)
-      @selenium.type(node() + "//*[@id='#{editable}']//input", value)
-      @selenium.fire_event(node() + "//*[@id='#{editable}']", "blur")
+
+      #check if the cell is a combo
+      editor_xtype = @selenium.get_eval("#{columns}[#{y}].getCellEditor(#{x}).field.getXType()");
+      field_editor_id = @selenium.get_eval("#{columns}[#{y}].getCellEditor(#{x}).field.getId()");
+      if  editor_xtype.downcase.include? "combobox" 
+        combo = Ext::Combo.new(field_editor_id, self, @selenium)
+        combo.value = value
+     else
+      @selenium.wait_for_component_visible(editor_id)
+      @selenium.type(node() + "//*[@id='#{editor_id}']//input", value)
+      @selenium.fire_event(node() + "//*[@id='#{editor_id}']", "blur")
+     end
     end
   end
 end
