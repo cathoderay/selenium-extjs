@@ -13,6 +13,7 @@ require 'selenium-extjs/component/Combo'
 require 'selenium-extjs/component/FieldSet'
 require 'selenium-extjs/component/BoxComponent'
 require 'selenium-extjs/component/Container'
+require 'selenium-extjs/component/ListView'
 
 require 'json'
 
@@ -118,7 +119,8 @@ module Ext
     :panel => Panel,
     :tabpanel => TabPanel,
     :combo => Combo,
-    :fieldset => FieldSet
+    :fieldset => FieldSet,
+    :listview => ListView
   }.each do | xtype, cls |
     Ext::reg(xtype, cls)
   end
