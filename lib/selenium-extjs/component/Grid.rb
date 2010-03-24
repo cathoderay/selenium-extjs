@@ -6,16 +6,16 @@ module Ext
     end
 
     def click_at_row(label)
-      @selenium.click_at(node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and contains(text(), '#{label}')]", "0,0")
+      @selenium.click_at(node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and text() = '#{label}']", "0,0")
     end
 
     def has_row(label)
-      @selenium.is_element_present(node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and contains(text(), '#{label}')]") 
+      @selenium.is_element_present(node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and text() = '#{label}']") 
     end
 
     #TODO: REFACTOR
     def wait_for_row_not_visible(label, timeout=10)
-      exp = node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and contains(text(), '#{label}')]"
+      exp = node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and text() = '#{label}']"
       t0 = Time.now
       while true
         begin
@@ -29,7 +29,7 @@ module Ext
 
     #TODO: REFACTOR
     def wait_for_row_visible(label, timeout=10)
-        exp = node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and contains(text(), '#{label}')]"
+        exp = node() + "//div[contains(@class,'x-grid3-body')]//div[contains(@class, 'x-grid3-cell-inner') and text() = '#{label}']"
         t0 = Time.now
         while true
           begin
@@ -103,7 +103,7 @@ module Ext
       end
     end
 
-    def edit_cell(x, y, value)
+    def edit_cell(x, y, value)      
       columns = "(window.Ext.getCmp('#{@id}').colModel.columns || window.Ext.getCmp('#{@id}').colModel.config)"
 #      if @selenium.get_eval("#{columns}[#{y}].hidden") == "true"                        
 #        return false

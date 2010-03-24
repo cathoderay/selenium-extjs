@@ -1,8 +1,7 @@
 module Ext
     class ListView < Component
-       def get_items
-#        text = @selenium.get_text(node() + "//div[contains(@class, 'x-list-body-inner')]//dt[0]")         
-           
-       end
+        def click_at_row(label)
+            @selenium.click_at(node() + "//div[contains(@class, 'x-list-body-inner')]//em[text() = '#{label}']", "0,0")
+        end
     end
 end
