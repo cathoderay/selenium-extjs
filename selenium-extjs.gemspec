@@ -24,6 +24,6 @@ Gem::Specification.new do |s|
     end
   else
   end
-  s.add_dependency 'json', '1.2.0'
+  s.add_dependency 'json', '1.2.4'
   s.add_dependency 'selenium-client', '1.2.18'
 end
