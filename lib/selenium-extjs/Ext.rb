@@ -13,7 +13,9 @@ require 'selenium-extjs/component/Combo'
 require 'selenium-extjs/component/FieldSet'
 require 'selenium-extjs/component/BoxComponent'
 require 'selenium-extjs/component/Container'
+require 'selenium-extjs/component/DataView'
 require 'selenium-extjs/component/ListView'
+require 'selenium-extjs/component/Textarea'
 
 require 'json'
 
@@ -120,7 +122,9 @@ module Ext
     :tabpanel => TabPanel,
     :combo => Combo,
     :fieldset => FieldSet,
-    :listview => ListView
+	:dataview =>DataView,
+    :listview => ListView,
+	:textarea => Textarea
   }.each do | xtype, cls |
     Ext::reg(xtype, cls)
   end
