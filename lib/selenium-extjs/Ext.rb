@@ -74,8 +74,8 @@ module Ext
     code << "  }"
     code << "})(window.Ext.getCmp('#{id}'));"
     (code.collect {|t| t.strip }).join
-    puts "code generated"
-    puts code
+#   puts "code generated"
+#   puts code
     return (code.collect {|t| t.strip }).join
   end
 
