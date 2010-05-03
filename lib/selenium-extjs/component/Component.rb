@@ -98,7 +98,6 @@ module Ext
 
 	  # xpath for this element.
 	  def selector
-	    p @parent
 	    sel = ""
 	    if @parent && @parent.getId()
   	    sel += @parent.selector()

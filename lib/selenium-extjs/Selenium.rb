@@ -12,7 +12,9 @@ module Ext
         filters = []
         args.each do |k,v|
           filters << case k
-            # use para botões.
+	        # use para botões.	
+			when :name	  	
+			  " (el.name?(el.name == '#{v}'):false) "
             when :icon_cls
               " (el.iconCls?(el.iconCls.indexOf('#{v}') != -1):false) "
             when :title
