@@ -39,7 +39,46 @@ module Ext
           return false if (Time.now - t0) > timeout
         end
     end
-  end
+
+	def wait_for_row_present(index, timeout=10)	
+        xpath = node() + "//div[contains(@class, 'x-grid3-row') and position() = #{index}]"	
+        t0 = Time.now
+        while true
+          begin
+            return true if @selenium.is_element_present(xpath)
+          rescue
+          end
+          return false if (Time.now - t0) > timeout
+        end
+	end
+
+	def row_lists_values(valueArray)
+		row_index = 1
+		row = node() + "//div[contains(@class, 'x-grid3-row') and position() = 1]"
+		while (@selenium.is_element_present(row) == true)
+			cell_content_index = 1
+			for value in valueArray			
+				cell_content = row + "//td[contains(@class,'x-grid3-cell') and position() = #{cell_content_index}]//div[contains(@class, 'x-grid3-cell-inner') and text() = '#{value}']"
+				if @selenium.is_element_present(cell_content) == false and value != nil
+					row_found = false
+					break	
+				else
+					row_found = true								
+				end
+
+				cell_content_index+=1
+			end		
+
+			if row_found == true
+				return row_index
+			end
+
+			row_index+=1
+			row = node() + "//div[contains(@class, 'x-grid3-row') and position() = #{row_index}]"			
+		end
+		return false
+	end
+end
 
 	class EditorGrid < Grid
     # number of lines of Grid (store!)

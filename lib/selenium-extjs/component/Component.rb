@@ -1,4 +1,3 @@
-
 require 'json'
 
 module Ext
@@ -55,8 +54,8 @@ module Ext
       cmd = Ext::build_remote_call(@id, method_name, arguments)
       ret = @selenium.get_eval(cmd)
         ret = JSON ret.split(":", 2)[1]
-      if ret.start_with? "JSON:"
-      end
+#      if ret.start_with? "JSON:"
+#      end
 
       if ret == "true" || ret == "false"
         ret = (ret =="true")
