@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.date = %q{2009-11-18}
   s.email = %q{raios.catodicos@gmail.com}
   s.extra_rdoc_files = ["README.rdoc"]
-  s.files = ["lib/selenium-extjs.rb", "lib/selenium-extjs", "lib/selenium-extjs/Selenium.rb", "lib/selenium-extjs/Ext.rb", "lib/selenium-extjs/component", "lib/selenium-extjs/component/Grid.rb", "lib/selenium-extjs/component/Combo.rb", "lib/selenium-extjs/component/Component.rb", "lib/selenium-extjs/component/Panel.rb", "lib/selenium-extjs/component/Window.rb", "lib/selenium-extjs/component/Field.rb", "lib/selenium-extjs/component/FieldSet.rb", "lib/selenium-extjs/component/Form.rb", "lib/selenium-extjs/component/Container.rb", "lib/selenium-extjs/component/BoxComponent.rb", "lib/selenium-extjs/component/Button.rb", "lib/selenium-extjs/component/ListView.rb", "README.rdoc"]
+  s.files = ["lib/selenium-extjs.rb", "lib/selenium-extjs", "lib/selenium-extjs/Selenium.rb", "lib/selenium-extjs/Ext.rb", "lib/selenium-extjs/component", "lib/selenium-extjs/component/Grid.rb", "lib/selenium-extjs/component/Combo.rb", "lib/selenium-extjs/component/Component.rb", "lib/selenium-extjs/component/DataView.rb", "lib/selenium-extjs/component/Textarea.rb", "lib/selenium-extjs/component/Panel.rb", "lib/selenium-extjs/component/Window.rb", "lib/selenium-extjs/component/Field.rb", "lib/selenium-extjs/component/FieldSet.rb", "lib/selenium-extjs/component/Form.rb", "lib/selenium-extjs/component/Container.rb", "lib/selenium-extjs/component/BoxComponent.rb", "lib/selenium-extjs/component/Button.rb", "lib/selenium-extjs/component/ListView.rb", "README.rdoc"]
   s.homepage = %q{http://github.com/cathoderay/selenium-extjs}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
